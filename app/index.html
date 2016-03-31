@@ -2,26 +2,53 @@
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <script src="js/app.js"></script>
+  <script src="js/miniquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
   <title>SPABadge</title>
 </head>
 <body>
-  <div class="container">
+  <div class="container" id="teacher-list">
     <div class="logo">
       <h1> SPA Badge </h1>
     </div>
-    <h1> SF Teachers </h1>
+    <h1> 2016 Dev Bootcamp Teachers </h1>
       <ul>
-        <li><a href="#">Derek</a></li>
-        <li><a href="#">Hunter</li>
-        <li><a href="#">Jaclyn</a></li>
-        <li><a href="#">Julian</a></li>
-        <li><a href="#">Mihai</a></li>
-        <li><a href="#">Sarah</a></li>
-        <li><a href="#">Seba</a></li>
-        <li><a href="#">Shambhavi</a></li>
-        <li><a href="#">Walker</a></li>
-        <li><a href="sample-page.html">Sample Page (to see what the badges view should look like)</a></li>
+        <div id='content'>
+          <li><a id='teacher' href="http://localhost:3000/">Teachers </a></li>
+        </div>
+
       </ul>
   </div>
+<div id='new_badge'>
+  <form id='badge_form_location' action="http://localhost:3000/badge" method="POST">
+    <fieldset id='new_badge_box'>
+      <legend >Create a badge!</legend>
+        Description: <input name="description" type="text">
+        <input id='new_badge_submit' type="submit" value="submit">
+    </fieldset>
+  </form>
+</div>
+
+  <script id="teacher-template" type="text/x-handlebars-template">
+
+  {{#each teacher}}
+    <li><a class='teacher' id='teachers{{id}}' href="http://localhost:3000/member/{{id}}">{{first_name}} {{last_name}}</a></li>
+  {{/each}}
+</script>
+<script id="individual-template" type="text/x-handlebars-template">
+    <p>{{teacher.first_name}} {{teacher.last_name}}</p>
+  {{#each teacher.badges}}
+    <p>
+    Badge:  {{description}}
+    <a>Like</a>
+    <a>Dislike</a>
+    {{#each votes}}
+    ({{points}} points)
+    {{/each}}
+    </p>
+  {{/each}}
+</script>
+
 </body>
 </html>
+
